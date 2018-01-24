@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/bitfinexcom/bitfinex-api-go/v1"
+	"log"
+	"math/rand"
 	"os"
 	"strconv"
-	"github.com/influxdata/influxdb/client/v2"
 	"time"
-	"math/rand"
-	"log"
+
+	"github.com/bitfinexcom/bitfinex-api-go/v1"
+	"github.com/influxdata/influxdb/client/v2"
 )
 
-
 func writePoints(tags map[string]string, fields map[string]interface{}) {
+	fmt.Println(tags)
 	clnt, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr:     "http://127.0.0.1:8086",
 		Username: "crypto",
@@ -49,26 +50,34 @@ func writePoints(tags map[string]string, fields map[string]interface{}) {
 	}
 }
 
-
-
-func getValue( curency string) float64 {
-
-	key := os.Getenv("BFX_API_KEY")
-	secret := os.Getenv("BFX_API_SECRET")
-
-	client := bitfinex.NewClient().Auth(key, secret)
+func getValue(curency string, client *bitfinex.Client) float64 {
 	change := curency + "usd"
 	var price float64
-	ticker, err := 	client.Ticker.Get(change)
-
-
+	ticker, err := client.Ticker.Get(change)
 
 	if err != nil {
 		fmt.Println("Error")
-	}else {
+	} else {
+		price, err2 := strconv.ParseFloat(ticker.LastPrice, 64)
+		if err2 != nil {
+			fmt.Println(err2)
+		}
+		return price
+	}
+	return price
+}
 
+func getVolume(curency string, client *bitfinex.Client) float64 {
 
-		price, err2 := strconv.ParseFloat(ticker.LastPrice,64)
+	change := curency + "usd"
+	var price float64
+	ticker, err := client.Ticker.Get(change)
+
+	if err != nil {
+		fmt.Println("Error")
+	} else {
+
+		price, err2 := strconv.ParseFloat(ticker.Volume, 64)
 		if err2 != nil {
 			fmt.Println(err2)
 		}
@@ -81,39 +90,42 @@ func getValue( curency string) float64 {
 func main() {
 	key := os.Getenv("BFX_API_KEY")
 	secret := os.Getenv("BFX_API_SECRET")
-
+	
 	client := bitfinex.NewClient().Auth(key, secret)
 
 	balance, err := client.Balances.All()
 
-	tags1 := map[string]string{
-		"kind":    "value",
+	tags := map[string]string{
+		"kind": "value",
 	}
-	tags2 := map[string]string{
-		"kind":    "amount",
-	}
-
 
 	if err != nil {
 		fmt.Println(err)
-	}else {
-
+	} else {
 
 		for _, element := range balance {
 
 			amountMap := make(map[string]interface{})
 			valueMap := make(map[string]interface{})
+			volumeMap := make(map[string]interface{})
 
 			valueMap[element.Currency] = getValue(element.Currency)
-			amountMap[element.Currency], err = strconv.ParseFloat(element.Amount,64)
+			amountMap[element.Currency], err = strconv.ParseFloat(element.Amount, 64)
+			volumeMap[element.Currency] = getVolume(element.Currency, client)
 			if err != nil {
 				fmt.Println(err)
 			}
-			fmt.Println(element.Currency, valueMap[element.Currency], amountMap[element.Currency])
-			//tags["kind"] = "value"
-			go writePoints(tags1, valueMap)
-			//tags["kind"] = "amount"
-			go writePoints(tags2, amountMap)
+			fmt.Println(element.Currency, valueMap[element.Currency], amountMap[element.Currency], volumeMap[element.Currency])
+
+			continue // Disable Influx Export
+			tags["kind"] = "value"
+			writePoints(tags, valueMap)
+
+			tags["kind"] = "amount"
+			writePoints(tags, amountMap)
+
+			tags["kind"] = "volume"
+			writePoints(tags, volumeMap)
 
 		}
 	}
