@@ -9,10 +9,3 @@ is a simple go tool to get data from the bitfinex v1 API and send it to an influ
 
 * BFX_API_KEY
 * BFX_API_SECRET
-
-*
-*
-*
-*
-*
-*
