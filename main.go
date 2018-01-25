@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -26,7 +25,7 @@ func writePoints(fields map[string]interface{}) {
 		Password: InfluxPass,
 	})
 	if err != nil {
-		fmt.Println(err) //log.Fatal(err)
+		log.Fatal(err)
 
 	}
 
@@ -36,7 +35,7 @@ func writePoints(fields map[string]interface{}) {
 	})
 
 	if err != nil {
-		fmt.Println(err) //log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	rand.Seed(time.Now().UnixNano())
@@ -49,12 +48,12 @@ func writePoints(fields map[string]interface{}) {
 		time.Now(),
 	)
 	if err != nil {
-		fmt.Println(err) //log.Fatal(err)
+		log.Fatal(err)
 	}
 	bp.AddPoint(pt)
 
 	if err := clnt.Write(bp); err != nil {
-		fmt.Println(err) //log.Fatal(err)
+		log.Fatal(err)
 	}
 }
 
@@ -94,8 +93,6 @@ func main() {
 	} else {
 
 		for _, element := range balance {
-			fmt.Println(getData(element, client))
-
 			writePoints(getData(element, client))
 		}
 	}
