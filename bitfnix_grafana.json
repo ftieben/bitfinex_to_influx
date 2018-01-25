@@ -18,6 +18,7 @@
   "hideControls": false,
   "id": 5,
   "links": [],
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
@@ -32,13 +33,14 @@
           "fill": 1,
           "id": 11,
           "legend": {
-            "alignAsTable": true,
+            "alignAsTable": false,
             "avg": false,
             "current": false,
+            "hideEmpty": false,
             "max": false,
             "min": false,
-            "rightSide": true,
-            "show": true,
+            "rightSide": false,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -261,12 +263,13 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
             "mode": "time",
             "name": null,
-            "show": true,
+            "show": false,
             "values": []
           },
           "yaxes": [
@@ -276,7 +279,7 @@
               "logBase": 10,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             },
             {
               "format": "short",
@@ -298,7 +301,7 @@
     },
     {
       "collapse": false,
-      "height": 351,
+      "height": 375,
       "panels": [
         {
           "aliasColors": {},
@@ -309,8 +312,11 @@
           "fill": 1,
           "id": 1,
           "legend": {
+            "alignAsTable": false,
             "avg": false,
             "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
             "max": false,
             "min": false,
             "show": true,
@@ -325,7 +331,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "crypto.LastPrice",
+              "yaxis": 1
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -380,6 +391,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -403,7 +415,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         },
@@ -420,7 +432,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -432,7 +444,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "crypto.Volume",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -487,6 +504,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -502,12 +520,12 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             },
             {
               "format": "short",
               "label": null,
-              "logBase": 2,
+              "logBase": 1,
               "max": null,
               "min": null,
               "show": true
@@ -606,6 +624,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -646,7 +665,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -658,7 +677,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "crypto.Volume",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -683,7 +707,7 @@
               ],
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT Volume  FROM \"crypto\" WHERE $timeFilter AND Curency = 'IOT';",
+              "query": "SELECT Volume  FROM \"crypto\" WHERE $timeFilter AND Curency = 'BTC';",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -707,12 +731,13 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "IOTA Volume",
+          "title": "BTC Volume",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -728,7 +753,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             },
             {
               "format": "short",
@@ -832,6 +857,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -872,7 +898,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -884,7 +910,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "crypto.Volume",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -939,6 +970,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1058,6 +1090,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1098,7 +1131,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -1110,7 +1143,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "crypto.Volume",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -1165,6 +1203,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1180,7 +1219,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             },
             {
               "format": "short",
@@ -1284,6 +1323,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1324,7 +1364,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -1391,6 +1431,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1406,7 +1447,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             },
             {
               "format": "short",
@@ -1434,7 +1475,7 @@
     "list": []
   },
   "time": {
-    "from": "now/w",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {
@@ -1464,5 +1505,5 @@
   },
   "timezone": "",
   "title": "BitFinex",
-  "version": 1
+  "version": 3
 }
