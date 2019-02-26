@@ -1,0 +1,2 @@
+github.com/bitfinexcom/bitfinex-api-go
+github.com/influxdata/influxdb/client
